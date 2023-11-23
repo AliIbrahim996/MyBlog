@@ -1,39 +1,54 @@
-const express = require("express");
-const createError = require("http-errors");
-const path = require("path");
-const cookieParser = require("cookie-parser");
-const logger = require("morgan");
-const cors = require("cors");
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-const index = require("./routes/index");
-const users = require("./routes/users");
 
-const app = express();
+// Setup mongo db
+var mongoose = require('mongoose');
+var COnNECTION_STRING = process.env.COnNECTION_STRING;
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", jade);
+// Setup connection
+mongoose.connect(COnNECTION_STRING)
+var db = mongoose.connection;
 
-app.use(logger("dev"));
+// Recover from errors
+db.on('error', console.error.bind(console, 'Connection error:'));
+
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(cors());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/", index);
-app.use("/users", users);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
-app.use((req, res, next) => {
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.use((err, req, res, next) => {
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    res.locals.message = err.message
-    res.locals.error = req.app.get('env') === 'development' ? err: {}
-
-    res.status(err.status || 500)
-    res.send('error')
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-module.exports = app
+module.exports = app;
