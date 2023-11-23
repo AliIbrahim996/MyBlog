@@ -12,13 +12,15 @@
     "react-bootstrap": "^2.9.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
+    "react-router": "^6.20.0",
     "react-router-dom": "^6.20.0",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
+    "serve": "^14.2.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "BUILD_PATH ='../public' react-scripts build",
+    "build-client": "react-scripts build && cp -r build/* '../public' ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

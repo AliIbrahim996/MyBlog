@@ -3,18 +3,21 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require('cors')
 
 // Setup mongo db
 var mongoose = require("mongoose");
-var COnNECTION_STRING = process.env.COnNECTION_STRING;
+var CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 // Setup connection
-mongoose.connect(COnNECTION_STRING);
+mongoose.connect(CONNECTION_STRING);
 var db = mongoose.connection;
 
 // Recover from errors
 db.on("error", console.error.bind(console, "Connection error:"));
-
+db.once('open', () =>{
+  console.log("Connected to DB successfully!")
+})
 var indexRouter = require("./routes/index");
 var postRouter = require("./routes/posts");
 var usersRouter = require("./routes/users");
@@ -30,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors())
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
