@@ -39,7 +39,7 @@ route.post("/", async (req, res, next) => {
   return res.status(201).json({
     statusCode: 201,
     message: "Post created Successfully",
-    data: { post },
+    content: { post },
   });
 });
 
@@ -55,7 +55,7 @@ route.put("/:id", async (req, res, next) => {
   return res.status(200).json({
     statusCode: 200,
     message: "Update post",
-    data: { post },
+    content: { post },
   });
 });
 
@@ -67,7 +67,7 @@ route.delete('/:id', async (req, res, next) => {
     return res.status(200).json({
       statusCode: 200,
       message: `Deleted ${result.deletedCount} post(s)`,
-      data: {},
+      content: {},
     });
   });
   

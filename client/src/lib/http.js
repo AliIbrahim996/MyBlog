@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const domain = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3001'
+const domain = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000'
 
 const http = (url, { method = 'GET', data = undefined }) => {
   return axios({

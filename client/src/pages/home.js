@@ -12,8 +12,8 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const { data } = await http.get("/api/posts");
-      setPosts(data.data.posts);
+      const { data } = await http.get(`/api/posts`);
+      setPosts(data.content.posts);
     }
     fetchData();
   }, []);
