@@ -1,0 +1,27 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
+    "build-client": "cd ./client && yarn build"
+  },
+  "keywords": [],
+  "author": "Ali Ibrahim",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "express-generator": "^4.2.0",
+    "http-errors": "^2.0.0",
+    "jade": "^0.29.0",
+    "mongoose": "^8.0.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
