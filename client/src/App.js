@@ -1,24 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Container from 'react-bootstrap/Container'
+
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
+
+import {Route, Routes} from 'react-router-dom'
+
+import Create from './pages/create'
+import Edit from './pages/edit'
+// We are going to implement each one of these "pages" in the last section
+import Home from './pages/home'
+import Post from './pages/post'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Navbar bg="dark" expand="lg" variant = "dark">
+      <Container>
+        <Navbar.Brand href="/">My Blog</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+        <Nav className="me-auto">
+          <Nav.Link href="posts/new">New post</Nav.Link>
+        </Nav>
+      </Container>
+    </Navbar>
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/posts/:id" element={<Post />} />
+        <Route path="/posts/new" element={<Create />} />
+        <Route path="/posts/:id/edit" element={<Edit />} />
+      </Routes>
+    </>
+   
   );
 }
 
