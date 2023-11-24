@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  blogAppClient:
+    image: blog-app-client
+    build: ./client
+    container_name: blog-app-client-contanier
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    networks:
+      - AppNet
+  
+  blogAppServer:
+    image: blog-app-server
+    build: ./server
+    container_name: blog-app-server-contanier
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - AppNet
+    
+networks:
+  AppNet:
+    driver: bridge

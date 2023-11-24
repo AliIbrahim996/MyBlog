@@ -22,9 +22,10 @@ const Post = () => {
   }, [postId]);
 
   const deletePost = async () => {
-    await http.delete(`api/posts/${postId}`);
+    await http.delete(`/api/posts/${postId}`);
     navigate("/");
   };
+
   return (
     <>
       <Container className="text-justified my-5" style={{ maxWidth: "800px" }}>

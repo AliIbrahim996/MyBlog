@@ -7,7 +7,9 @@ const cors = require('cors')
 
 // Setup mongo db
 var mongoose = require("mongoose");
-var CONNECTION_STRING = process.env.CONNECTION_STRING;
+var username = process.env.USERNAME;
+var password = process.env.PASSWORD;
+var CONNECTION_STRING = `mongodb+srv://${username}:${password}@blogappcluster0.qrykbwc.mongodb.net/`;
 
 // Setup connection
 mongoose.connect(CONNECTION_STRING);
@@ -57,6 +59,7 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+  res.header('Access-Control-Allow-Origin', `http://blogAppClient:${process.env.REACT_APP_CLIENT_PORT}`)
 });
 
 module.exports = app;

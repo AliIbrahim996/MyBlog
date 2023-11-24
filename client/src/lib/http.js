@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const domain = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000'
-
+const domain = process.env.NODE_ENV === 'production' ? '' : `http://blogAppServer:${process.env.REACT_APP_SERVER_PORT}`
 const http = (url, { method = 'GET', data = undefined }) => {
   return axios({
     url: `${domain}${url}`,
