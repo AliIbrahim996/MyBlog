@@ -3,16 +3,20 @@ import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import formatDate from "../lib/formatDate";
 import http from "../lib/http";
+
+const API_VERSION = process.env.API_VERSION || "v1";
+const API_URI = process.env.API_URI || `/api/${API_VERSION}`;
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const { data } = await http.get(`/api/posts`);
+      console.log(API_URI);
+      const { data } = await http.get(`${API_URI}/posts/`);
       setPosts(data.content.posts);
     }
     fetchData();
@@ -57,4 +61,4 @@ const Home = () => {
   );
 };
 
-export default Home
+export default Home;

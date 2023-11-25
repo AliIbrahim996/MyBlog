@@ -19,7 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env PORT=3001 react-scripts start",
     "build-client": "react-scripts build && cp -r build/* public/ ",
     "clean": "rm -rf build public/bundle.js && rm -rf build public/bundle.js.gz",
     "test": "react-scripts test",
@@ -42,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

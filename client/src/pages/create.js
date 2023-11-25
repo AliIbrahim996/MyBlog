@@ -6,6 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 import http from "../lib/http";
 
+const API_VERSION = process.env.API_VERSION || "v1";
+const API_URI = process.env.API_URI || `/api/${API_VERSION}`;
+
 const Post = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
@@ -18,7 +21,7 @@ const Post = () => {
       content,
     };
 
-    await http.post(`/api/posts`, { data: payload });
+    await http.post(`${API_URI}/posts/`, { data: payload });
     navigate("/");
   };
 

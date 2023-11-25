@@ -7,6 +7,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import formatDate from "../lib/formatDate";
 import http from "../lib/http";
 
+const API_VERSION = process.env.API_VERSION || "v1";
+const API_URI = process.env.API_URI || `/api/${API_VERSION}`;
+
 const Post = () => {
   const { id: postId } = useParams();
   const [post, setPost] = useState({});
@@ -15,14 +18,14 @@ const Post = () => {
   // Fetch post
   useEffect(() => {
     async function fetchData() {
-      const { data } = await http.get(`/api/posts/${postId}`);
+      const { data } = await http.get(`${API_URI}/posts/${postId}`);
       setPost(data.content.post);
     }
     fetchData();
   }, [postId]);
 
   const deletePost = async () => {
-    await http.delete(`/api/posts/${postId}`);
+    await http.delete(`${API_URI}/posts/${postId}`);
     navigate("/");
   };
 

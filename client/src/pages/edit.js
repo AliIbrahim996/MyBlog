@@ -7,6 +7,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import http from "../lib/http";
 
+const API_VERSION = process.env.API_VERSION || "v1";
+const API_URI = process.env.API_URI || `/api/${API_VERSION}`;
+
 const Edit = () => {
   const { id: postId } = useParams();
   const navigate = useNavigate();
@@ -14,7 +17,7 @@ const Edit = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const { content } = await http.get(`/api/posts/${postId}`);
+      const { content } = await http.get(`${API_URI}/posts/${postId}`);
       reset(content.data.post);
     }
     fetchData();
@@ -28,7 +31,7 @@ const Edit = () => {
       content,
     };
 
-    await http.put(`/api/posts/${postId}`, { data: payload });
+    await http.put(`${API_URI}/posts/${postId}`, { data: payload });
     navigate(`/posts/${postId}`);
   };
   return (

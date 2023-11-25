@@ -11,6 +11,6 @@ COPY . .
 RUN npm run clean
 RUN npm run build-client
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD ["npm", "start"]
