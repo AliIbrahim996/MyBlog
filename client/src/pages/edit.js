@@ -32,7 +32,6 @@ const Edit = () => {
     navigate(`/posts/${postId}`);
   };
   return (
-    <>
       <Container className="my-5" style={{ maxWidth: "800px" }}>
         <h1>Edit your post</h1>
         <Form onSubmit={handleSubmit(onSubmit)} className="my-5">
@@ -80,7 +79,6 @@ const Edit = () => {
           &#8592; Back to Home
         </Link>
       </Container>
-    </>
   );
 };
 

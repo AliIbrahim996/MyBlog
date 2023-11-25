@@ -27,7 +27,6 @@ const Post = () => {
   };
 
   return (
-    <>
       <Container className="text-justified my-5" style={{ maxWidth: "800px" }}>
         <h1>{post.title}</h1>
         <div className="text-secondary mb-2">{formatDate(post.createdAt)}</div>
@@ -53,7 +52,6 @@ const Post = () => {
           &#8592; Back to Home
         </Link>
       </Container>
-    </>
   );
 };
 

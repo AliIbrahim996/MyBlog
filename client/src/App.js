@@ -12,6 +12,7 @@ import Post from "./pages/post";
 import Create from "./pages/create";
 import Edit from "./pages/edit";
 
+const sections = [{ title: "New post", url: "/posts/new/" }];
 function App() {
   return (
     <>
@@ -20,14 +21,16 @@ function App() {
           <Navbar.Brand href="/">My Blog</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Nav className="me-auto">
-            <Nav.Link href="posts/new">New post</Nav.Link>
+            {sections.map((section) => (
+              <Nav.Link href={section.url}>{section.title}</Nav.Link>
+            ))}
           </Nav>
         </Container>
       </Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/posts/new/" element={<Create />} />
         <Route path="/posts/:id" element={<Post />} />
-        <Route path="/posts/new" element={<Create />} />
         <Route path="/posts/:id/edit" element={<Edit />} />
       </Routes>
     </>
