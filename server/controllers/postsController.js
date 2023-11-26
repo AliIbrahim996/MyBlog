@@ -22,7 +22,8 @@ const getPostById = async (req, res, next) => {
 };
 
 const addNewPost = async (req, res, next) => {
-  const { title, author, content, tags } = req.body;
+  const { title, content, tags } = req.body;
+  const author = req.user;
   const post = new Post({
     title,
     author,
@@ -32,14 +33,23 @@ const addNewPost = async (req, res, next) => {
   await post.save();
   return res.status(201).json({
     statusCode: 201,
-    message: "Post created Successfully",
+    message: "Post created Successfully!",
     content: { post },
   });
 };
 
 const updatePostById = async (req, res, next) => {
-  const { title, author, content, tags } = req.body;
-  const post = await Post.findByIdAndUpdate(req.params.id, {
+  const { title, content, tags } = req.body;
+  const existingPost = await Post.findById(req.params.id);
+  if (existingPost.user != req.user)
+    return res.status(401).json({
+      statusCode: 401,
+      message:
+        "You are not allowed to updated post that belongs to other users!",
+      content: null,
+    });
+  const author = req.user;
+  const post = await Post.updateOne(existingPost, {
     title,
     author,
     content,
@@ -47,14 +57,23 @@ const updatePostById = async (req, res, next) => {
   });
   return res.status(200).json({
     statusCode: 200,
-    message: "Update post",
+    message: "Post updated successfully!",
     content: { post },
   });
 };
 
 const deletePostById = async (req, res, next) => {
+  const existingPost = await Post.findById(req.params.id);
+  if (existingPost.user != req.user)
+    return res.status(401).json({
+      statusCode: 401,
+      message:
+        "You are not allowed to delete post that belongs to other users!",
+      content: null,
+    });
+
   // Mongo stores the id as `_id` by default
-  const result = await Post.deleteOne({ _id: req.params.id });
+  const result = await Post.deleteOne(existingPost);
   return res.status(200).json({
     statusCode: 200,
     message: `Deleted ${result.deletedCount} post(s)`,

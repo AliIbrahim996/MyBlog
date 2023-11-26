@@ -23,7 +23,7 @@ verifyToken = (req, res, next) => {
         message: "User not found!",
       });
     }
-    // Set req.user to the found user
+    // Set req.user to the founded user
     req.user = user;
     next();
   });

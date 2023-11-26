@@ -9,7 +9,7 @@ const {
   deletePostById,
 } = require("../controllers/postsController");
 
-const verifyToken = require("../middleware/authIndex");
+const {verifyToken} = require("../middleware/authIndex");
 
 // Get All posts
 // GET /api/version/posts/

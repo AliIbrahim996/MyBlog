@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     trim: true,
     required: true,
   },
-  password:{type: String, required: true},
+  password: { type: String, required: true },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -19,15 +19,19 @@ const UserSchema = new Schema({
   isLoggedIn: {
     type: Boolean,
   },
+  posts: [{
+    type: Schema.Types.ObjectId,
+    ref: "Post",
+  }],
 });
 
 UserSchema.pre("save", (next) => {
-    now = new Date();
-    if (!this.createdAt) {
-      this.createdAt = now;
-    }
-    next();
-  });
+  now = new Date();
+  if (!this.createdAt) {
+    this.createdAt = now;
+  }
+  next();
+});
 
 // generating a hash
 UserSchema.methods.generateHash = (password) => {
