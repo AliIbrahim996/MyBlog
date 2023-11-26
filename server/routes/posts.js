@@ -9,24 +9,26 @@ const {
   deletePostById,
 } = require("../controllers/postsController");
 
+const verifyToken = require("../middleware/authIndex");
+
 // Get All posts
-// GET /api/posts/
+// GET /api/version/posts/
 route.get("/", getAllPosts);
 
 // Get post by id
-// GET /api/posts/id
+// GET /api/version/posts/id
 route.get("/:id", getPostById);
 
 // Add new post
 // POST BASE_URL/
-route.post("/", addNewPost);
+route.post("/", verifyToken, addNewPost);
 
 // Update post
-// PUT BASE_URL/id
-route.put("/:id", updatePostById);
+// PUT /api/version/posts/id
+route.put("/:id", verifyToken, updatePostById);
 
 // Delete post by id
-// DELETE /api/posts/id
-route.delete("/:id", deletePostById);
+// DELETE /api/version/posts/id
+route.delete("/:id", verifyToken, deletePostById);
 
 module.exports = route;
