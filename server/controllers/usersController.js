@@ -1,8 +1,8 @@
-const user = require("../models/user");
+const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const createUserController = async () => {
+const createUserController = async (req, res) => {
   try {
     let { firstName, lastName, email, password, repeatPassword } = req.body;
     if (!email || !password || !repeatPassword || !firstName || !lastName)
@@ -41,7 +41,7 @@ const createUserController = async () => {
         id: savedUser._id,
         email: savedUser.email,
         firstName: savedUser.firstName,
-        lastNameName: savedUser.firstName,
+        lastName: savedUser.lastName,
         createdAt: savedUser.createdAt,
       },
     });
@@ -59,9 +59,8 @@ const updateUserByEmailController = async (req, res) => {
   try {
     let { email } = req.body;
 
-    if (email) {
+    if (!email) {
       const existingUser = await User.findOne({ email: email });
-
       if (existingUser._id != req.user._id)
         return res.status(400).json({
           statusCode: 400,
@@ -83,7 +82,7 @@ const updateUserByEmailController = async (req, res) => {
         new: true, // return the new result instead of the old one
         runValidators: true,
       }
-    ).exec();
+    );
 
     // Send the response
     if (!result) {
@@ -150,7 +149,6 @@ const deleteUserController = async (req, res) => {
 const loginUserController = async (req, res) => {
   try {
     const { email, password } = req.body;
-
     // validate
     if (!email || !password)
       return res.status(400).json({
@@ -178,7 +176,8 @@ const loginUserController = async (req, res) => {
         message: "Invalid password!",
       });
 
-    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+    const secretKey = process.env.SECRET || "MySecretKey1";
+    const token = jwt.sign({ id: user._id }, secretKey, {
       algorithm: "HS256",
       allowInsecureKeySizes: true,
       expiresIn: Math.floor(Date.now() / 1000) + 60 * 60 * 24,
@@ -189,7 +188,7 @@ const loginUserController = async (req, res) => {
       {
         new: true,
       }
-    ).exec();
+    );
 
     // Send the response
     return res.status(200).json({
