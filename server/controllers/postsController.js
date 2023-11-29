@@ -81,10 +81,25 @@ const deletePostById = async (req, res, next) => {
   });
 };
 
+const searchForPost = async (req, res, next) => {
+  const { searchTerm } = req.body;
+  try {
+    const posts = await Post.find({ $text: { $search: searchTerm } })
+      .sort({ score: { $meta: "textScore" } }) // Sort by relevance score
+      .select({ score: { $meta: "textScore" } }); // Include relevance score in the resultsF
+    res.json({ statusCode: 200, content: posts });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while searching for posts!" });
+  }
+};
+
 module.exports = {
   getAllPosts,
   getPostById,
   addNewPost,
   updatePostById,
   deletePostById,
+  searchForPost,
 };

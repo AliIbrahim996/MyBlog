@@ -7,13 +7,18 @@ const {
   addNewPost,
   updatePostById,
   deletePostById,
+  searchForPost,
 } = require("../controllers/postsController");
 
-const {verifyToken} = require("../middleware/authIndex");
+const { verifyToken } = require("../middleware/authIndex");
 
 // Get All posts
 // GET /api/version/posts/
 route.get("/", getAllPosts);
+
+// Get All posts that satisfies the search term.
+// GET /api/version/posts/
+route.get("/search", searchForPost);
 
 // Get post by id
 // GET /api/version/posts/id

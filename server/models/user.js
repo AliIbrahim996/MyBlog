@@ -19,10 +19,16 @@ const UserSchema = new Schema({
   isLoggedIn: {
     type: Boolean,
   },
-  posts: [{
-    type: Schema.Types.ObjectId,
-    ref: "Post",
-  }],
+  posts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
+    },
+  ],
+  resetCode: {
+    type: String,
+    default: null,
+  },
 });
 
 UserSchema.pre("save", (next) => {

@@ -23,4 +23,6 @@ PostSchema.pre("update", (next) => {
   next();
 });
 
+PostSchema.index({"$**":"text"});
+
 module.exports = mongoose.model("Post", PostSchema);

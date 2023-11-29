@@ -6,7 +6,7 @@ Develop a simple Blog app application that allows visitors to see IT posts, and 
 ### &#x2610; User Authentication
 - &#x2610; Implement user registration functionality, including user information collection(name, email, password).
 - &#x2610; Create a login page for registered users.
-- &#x2610; Implement a password reset feature allowing users to reset their passwords via email.
+- &#x2611; Implement a password reset feature allowing users to reset their passwords via email.
 ### &#x2610; Post Management
 - &#x2611; Implement a data structure/database to store user-specific post records.
 - &#x2611; Ensure that users own posts are associated with the logged-in user.
